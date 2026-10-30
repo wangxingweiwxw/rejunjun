@@ -10,12 +10,11 @@ if (relative(root, output) !== 'dist' || (existsSync(output) && lstatSync(output
   throw new Error('Refusing to replace an output directory outside this project.');
 }
 const files = [
-  'index.html', 'style.css', 'game.js', 'core.js',
-  'assets/zombie.glb', 'assets/zombie-diffuse.jpg',
-  'assets/pistol_1.glb', 'assets/shotgun_1.glb', 'assets/assault_rifle_1.glb',
-  'vendor/three.module.js', 'vendor/GLTFLoader.js',
-  'vendor/BufferGeometryUtils.js', 'vendor/SkeletonUtils.js', 'vendor/LICENSE',
-  'upstream/LICENSE', 'upstream/attributions.txt', 'THIRD_PARTY_NOTICES.md',
+  'index.html', 'style.css', 'notices.json',
+  'assets/app.js', 'assets/models.js', 'assets/survivor.js',
+  'assets/boy-materials.jpg', 'assets/boy-normal.png',
+  'assets/boy-skin-normal.png', 'assets/boy-skin.jpg',
+  'assets/preview.jpg', 'assets/zombie-detail.jpg', 'assets/zombie-diffuse.jpg',
 ];
 let total = 0, largest = {name: '', size: 0};
 for (const name of files) {
@@ -31,6 +30,7 @@ for (const name of files) {
   total += stat.size;
   if (stat.size > largest.size) largest = {name, size: stat.size};
 }
+if (total > 10_000_000) throw new Error(`Runtime assets exceed the 10 MB budget: ${total}`);
 // The validated destination is exactly <project>/dist, never the repository root.
 rmSync(output, {recursive: true, force: true});
 for (const name of files) {

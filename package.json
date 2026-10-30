@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "bundle": "npx --yes esbuild@0.28.1 source/game.js --bundle --format=iife --target=es2017,chrome61 --alias:three=./source/three.module.js --minify --legal-comments=inline --outfile=assets/app.js",
     "build": "node build.mjs",
     "deploy": "npx wrangler@4.141.0 deploy",
     "preview": "npx wrangler@4.141.0 dev",

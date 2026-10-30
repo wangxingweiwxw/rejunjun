@@ -1,0 +1,6 @@
+* text=auto
+# Keep prebuilt runtime bytes identical to the validated mini-tool artifact.
+/index.html -text
+/style.css -text
+/notices.json -text
+/assets/** -text
